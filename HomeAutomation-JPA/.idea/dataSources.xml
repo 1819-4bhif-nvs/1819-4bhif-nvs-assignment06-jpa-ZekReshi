@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="jdbc:derby://localhost:1527/ - db@localhost:1527" uuid="7f9e711c-2c1d-44db-b564-108a414ef504">
+      <driver-ref>derby.remote</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.apache.derby.jdbc.ClientDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby://localhost:1527/db</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="mem:test" uuid="2d735680-1716-4a6b-bf13-e047b85ec142">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:tcp://localhost:9092/~/db</jdbc-url>
+    </data-source>
+  </component>
+</project>
