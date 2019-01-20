@@ -26,15 +26,6 @@ public class InitBean {
     public void init() {
         System.err.println("********** hello");
 
-        SensorType tempST = new SensorType("Temperatur", "°C");
-        SensorType humidST = new SensorType("Feuchtigkeit", "%");
-        SensorType lightST = new SensorType("Licht", "ca");
-        List<SensorType> sensorTypes = new LinkedList<>();
-        sensorTypes.add(tempST);
-        sensorTypes.add(humidST);
-        sensorTypes.add(lightST);
-        persistCollection(sensorTypes);
-
         Location livingL = new Location("Wohnzimmer");
         Location bathL = new Location("Badezimmer");
         Location bedL = new Location("Schlafzimmer");
@@ -44,16 +35,25 @@ public class InitBean {
         locations.add(bedL);
         persistCollection(locations);
 
-        Sensor livingTempS = new Sensor("TEMP1", LocalDateTime.parse("2018-12-08T12:04:32"), livingL, tempST);
-        Sensor livingLightS = new Sensor("LIGHT1", LocalDateTime.parse("2018-12-09T11:06:42"), livingL, lightST);
-        Sensor bathHumidS = new Sensor("HUMID1", LocalDateTime.parse("2018-12-08T10:01:58"), bathL, humidST);
-        Sensor bedTempS = new Sensor("TEMP2", LocalDateTime.parse("2018-12-06T12:05:34"), bedL, tempST);
+        Sensor livingTempS = new Sensor("TEMP1", livingL);
+        Sensor livingLightS = new Sensor("LIGHT1", livingL);
+        Sensor bathHumidS = new Sensor("HUMID1", bathL);
+        Sensor bedTempS = new Sensor("TEMP2", bedL);
         List<Sensor> sensors = new LinkedList<>();
         sensors.add(livingTempS);
         sensors.add(livingLightS);
         sensors.add(bathHumidS);
         sensors.add(bedTempS);
         persistCollection(sensors);
+
+        Measurement tempST = new Measurement(22.1d, "degC", LocalDateTime.parse("2018-12-08T12:04:32"), livingTempS);
+        Measurement humidST = new Measurement(55d, "%", LocalDateTime.parse("2018-12-08T12:01:58"), bathHumidS);
+        Measurement lightST = new Measurement(25d, "ca", LocalDateTime.parse("2018-12-06T12:05:34"), livingLightS);
+        List<Measurement> measurements = new LinkedList<>();
+        measurements.add(tempST);
+        measurements.add(humidST);
+        measurements.add(lightST);
+        persistCollection(measurements);
 
         Actor livingHeaterA = new Actor("Heizung", livingL);
         Actor bathLightA = new Actor("Beleuchtung", bathL);

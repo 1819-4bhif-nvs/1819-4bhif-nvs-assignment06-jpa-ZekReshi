@@ -24,13 +24,12 @@ public class ActorEndpointIT {
     @Before
     public void initClient() {
         this.client = ClientBuilder.newClient();
-        this.tut = client.target("http://localhost:8080/homeautomation-jpa/API/actors");
+        this.tut = client.target("http://localhost:8080/homeautomation/API/actors");
     }
 
     @Test
     public void getActors() {
-        Response response = this
-                .tut
+        Response response = this.tut
                 .request(MediaType.APPLICATION_JSON)
                 .get();
         assertThat(response.getStatus(), is(200));
@@ -40,8 +39,7 @@ public class ActorEndpointIT {
 
     @Test
     public void getActor() {
-        Response response = this
-                .tut
+        Response response = this.tut
                 .path("5")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
@@ -52,19 +50,67 @@ public class ActorEndpointIT {
 
     @Test
     public void postActor() {
-        JsonObject sensor = Json.createObjectBuilder()
+        JsonObject actor = Json.createObjectBuilder()
                 .add("name", "ENGINE1")
-                .add("Location", Json.createObjectBuilder()
-                        .add("name", "Vorzimmer"))
+                .add("location", Json.createObjectBuilder()
+                        .add("id", 1))
                 .build();
-        System.out.println(sensor.toString());
-        Response response = this
-                .tut
+        Response response = this.tut
                 .request(MediaType.APPLICATION_JSON)
-                .post(Entity.json(sensor));
+                .post(Entity.json(actor));
         assertThat(response.getStatus(), is(200));
         JsonObject payload = response.readEntity(JsonObject.class);
         assertThat(payload.getString("name"), is("ENGINE1"));
+    }
+
+    @Test
+    public void deleteActor() {
+        JsonObject actor = Json.createObjectBuilder()
+                .add("name", "ENGINE1")
+                .add("location", Json.createObjectBuilder()
+                        .add("id", 1))
+                .build();
+        Response response = this.tut
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(actor));
+        assertThat(response.getStatus(), is(200));
+        JsonObject payload = response.readEntity(JsonObject.class);
+        response = this.tut
+                .path("" + payload.getInt("id"))
+                .request(MediaType.APPLICATION_JSON)
+                .delete();
+        assertThat(response.getStatus(), is(204));
+        response = this.tut
+                .path("" + payload.getInt("id"))
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+        assertThat(response.getStatus(), is(404));
+    }
+
+    @Test
+    public void putActor() {
+        JsonObject actor = Json.createObjectBuilder()
+                .add("name", "ENGINE1")
+                .add("location", Json.createObjectBuilder()
+                        .add("id", 1))
+                .build();
+        Response response = this.tut
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.json(actor));
+        assertThat(response.getStatus(), is(200));
+        JsonObject payload = response.readEntity(JsonObject.class);
+        JsonObject actorToUpdate = Json.createObjectBuilder()
+                .add("id", payload.getInt("id"))
+                .add("name", payload.getString("name"))
+                .add("location", Json.createObjectBuilder()
+                        .add("id", 2))
+                .build();
+        response = this.tut
+                .request(MediaType.APPLICATION_JSON)
+                .put(Entity.json(actorToUpdate));
+        assertThat(response.getStatus(), is(200));
+        payload = response.readEntity(JsonObject.class);
+        assertThat(payload.getJsonObject("location").getInt("id"), is(2));
     }
 
 }

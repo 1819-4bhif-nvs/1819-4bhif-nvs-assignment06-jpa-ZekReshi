@@ -1,10 +1,10 @@
 package at.htl.homeautomation.model;
 
-import at.htl.homeautomation.business.LocalDateTimeAdapter;
-
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.time.LocalDateTime;
+import javax.xml.bind.annotation.XmlTransient;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "HA_SENSOR")
@@ -13,38 +13,25 @@ import java.time.LocalDateTime;
 })
 public class Sensor extends Device {
 
-    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-    private LocalDateTime lastMeasurement;
-    @ManyToOne
-    private SensorType type;
+    @JsonbTransient
+    @XmlTransient
+    @OneToMany(mappedBy = "sensor")
+    private List<Measurement> measurements = new ArrayList<>();
 
     public Sensor() {}
 
-    public Sensor(String name, LocalDateTime lastMeasurement, Location location, SensorType type) {
+    public Sensor(String name, Location location) {
         super(name, location);
-        this.lastMeasurement = lastMeasurement;
-        this.type = type;
-        this.type.getSensors().add(this);
     }
 
     // region Getter and Setter
 
-    public LocalDateTime getLastMeasurement() {
-        return lastMeasurement;
+    public List<Measurement> getMeasurements() {
+        return measurements;
     }
 
-    public void setLastMeasurement(LocalDateTime lastMeasurement) {
-        this.lastMeasurement = lastMeasurement;
-    }
-
-    public SensorType getType() {
-        return type;
-    }
-
-    public void setType(SensorType type) {
-        this.type.getSensors().remove(this);
-        this.type = type;
-        this.type.getSensors().add(this);
+    public void setMeasurements(List<Measurement> measurements) {
+        this.measurements = measurements;
     }
 
     // endregion

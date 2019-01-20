@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="jdbc:derby://localhost:1527/ - db@localhost:1527">
-  <database-model serializer="dbm" rdbms="DERBY" format-version="4.11">
+  <database-model serializer="dbm" dbms="DERBY" family-id="DERBY" format-version="4.14">
     <root id="1">
-      <ServerVersion>10.14</ServerVersion>
+      <ServerVersion>10.11.1.2</ServerVersion>
     </root>
     <schema id="2" parent="1" name="APP">
       <Current>1</Current>
@@ -21,23 +21,23 @@
     <table id="13" parent="2" name="HA_ACTOR"/>
     <table id="14" parent="2" name="HA_DEVICE"/>
     <table id="15" parent="2" name="HA_LOCATION"/>
-    <table id="16" parent="2" name="HA_SENSOR"/>
-    <table id="17" parent="2" name="HA_SENSORTYPE"/>
+    <table id="16" parent="2" name="HA_MEASUREMENT"/>
+    <table id="17" parent="2" name="HA_SENSOR"/>
     <column id="18" parent="13" name="ID">
       <Position>1</Position>
       <DataType>BIGINT|-5s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="19" parent="13" name="SQL181208185059210">
+    <index id="19" parent="13" name="SQL190120123209960">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="20" parent="13" name="SQL181208185059680">
+    <index id="20" parent="13" name="SQL190120123210560">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
     </index>
-    <key id="21" parent="13" name="SQL181208185059210">
+    <key id="21" parent="13" name="SQL190120123209960">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
@@ -46,7 +46,7 @@
       <ColNames>ID</ColNames>
       <RefSchemaName>APP</RefSchemaName>
       <RefTableName>HA_DEVICE</RefTableName>
-      <RefKeyName>SQL181208185059290</RefKeyName>
+      <RefKeyName>SQL190120123210060</RefKeyName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
     <column id="23" parent="14" name="DTYPE">
@@ -61,7 +61,7 @@
       <SequenceIdentity>1</SequenceIdentity>
       <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
     </column>
-    <column id="25" parent="14" name="NAME">
+    <column id="25" parent="14" name="DEVICENAME">
       <Position>3</Position>
       <DataType>VARCHAR(255)|12s</DataType>
     </column>
@@ -73,16 +73,16 @@
       <Position>5</Position>
       <DataType>BIGINT|-5s</DataType>
     </column>
-    <index id="28" parent="14" name="SQL181208185059290">
+    <index id="28" parent="14" name="SQL190120123210060">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="29" parent="14" name="SQL181208185059681">
+    <index id="29" parent="14" name="SQL190120123210570">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>LOCATION_ID</ColNames>
     </index>
-    <key id="30" parent="14" name="SQL181208185059290">
+    <key id="30" parent="14" name="SQL190120123210060">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
@@ -91,7 +91,7 @@
       <ColNames>LOCATION_ID</ColNames>
       <RefSchemaName>APP</RefSchemaName>
       <RefTableName>HA_LOCATION</RefTableName>
-      <RefKeyName>SQL181208185059380</RefKeyName>
+      <RefKeyName>SQL190120123210190</RefKeyName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
     <column id="32" parent="15" name="ID">
@@ -101,7 +101,7 @@
       <SequenceIdentity>1</SequenceIdentity>
       <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
     </column>
-    <column id="33" parent="15" name="NAME">
+    <column id="33" parent="15" name="LOCATIONNAME">
       <Position>2</Position>
       <DataType>VARCHAR(255)|12s</DataType>
     </column>
@@ -109,12 +109,12 @@
       <Position>3</Position>
       <DataType>INTEGER|4s</DataType>
     </column>
-    <index id="35" parent="15" name="SQL181208185059380">
+    <index id="35" parent="15" name="SQL190120123210190">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="36" parent="15" name="SQL181208185059380">
+    <key id="36" parent="15" name="SQL190120123210190">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
@@ -123,71 +123,75 @@
       <Position>1</Position>
       <DataType>BIGINT|-5s</DataType>
       <NotNull>1</NotNull>
-    </column>
-    <column id="38" parent="16" name="TYPE_ID">
-      <Position>2</Position>
-      <DataType>BIGINT|-5s</DataType>
-    </column>
-    <index id="39" parent="16" name="SQL181208185059480">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>ID</ColNames>
-      <Unique>1</Unique>
-    </index>
-    <index id="40" parent="16" name="SQL181208185059810">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>ID</ColNames>
-    </index>
-    <index id="41" parent="16" name="SQL181208185059740">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>TYPE_ID</ColNames>
-    </index>
-    <key id="42" parent="16" name="SQL181208185059480">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>ID</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="43" parent="16" name="FKQDIQ1QG9ET2T8AUB94K7NLX1C">
-      <ColNames>ID</ColNames>
-      <RefSchemaName>APP</RefSchemaName>
-      <RefTableName>HA_DEVICE</RefTableName>
-      <RefKeyName>SQL181208185059290</RefKeyName>
-      <RefColNames>ID</RefColNames>
-    </foreign-key>
-    <foreign-key id="44" parent="16" name="FK6PW4097PWPTK8CYEEIPJ98BM1">
-      <ColNames>TYPE_ID</ColNames>
-      <RefSchemaName>APP</RefSchemaName>
-      <RefTableName>HA_SENSORTYPE</RefTableName>
-      <RefKeyName>SQL181208185059580</RefKeyName>
-      <RefColNames>ID</RefColNames>
-    </foreign-key>
-    <column id="45" parent="17" name="ID">
-      <Position>1</Position>
-      <DataType>BIGINT|-5s</DataType>
-      <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
     </column>
-    <column id="46" parent="17" name="NAME">
+    <column id="38" parent="16" name="TIME">
       <Position>2</Position>
-      <DataType>VARCHAR(255)|12s</DataType>
+      <DataType>TIMESTAMP|93s</DataType>
     </column>
-    <column id="47" parent="17" name="UNIT">
+    <column id="39" parent="16" name="UNIT">
       <Position>3</Position>
       <DataType>VARCHAR(255)|12s</DataType>
     </column>
-    <column id="48" parent="17" name="VERSION">
+    <column id="40" parent="16" name="VALUE">
       <Position>4</Position>
+      <DataType>DOUBLE|8s</DataType>
+    </column>
+    <column id="41" parent="16" name="VERSION">
+      <Position>5</Position>
       <DataType>INTEGER|4s</DataType>
     </column>
-    <index id="49" parent="17" name="SQL181208185059580">
+    <column id="42" parent="16" name="SENSOR_ID">
+      <Position>6</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <index id="43" parent="16" name="SQL190120123210300">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="50" parent="17" name="SQL181208185059580">
+    <index id="44" parent="16" name="SQL190120123210640">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>SENSOR_ID</ColNames>
+    </index>
+    <key id="45" parent="16" name="SQL190120123210300">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
+    <foreign-key id="46" parent="16" name="FKCRA73HYK97LS2WWSWKYHXT2G8">
+      <ColNames>SENSOR_ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>HA_SENSOR</RefTableName>
+      <RefKeyName>SQL190120123210460</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="47" parent="17" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="48" parent="17" name="SQL190120123210460">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="49" parent="17" name="SQL190120123210730">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+    </index>
+    <key id="50" parent="17" name="SQL190120123210460">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="51" parent="17" name="FKQDIQ1QG9ET2T8AUB94K7NLX1C">
+      <ColNames>ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>HA_DEVICE</RefTableName>
+      <RefKeyName>SQL190120123210060</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
   </database-model>
 </dataSource>

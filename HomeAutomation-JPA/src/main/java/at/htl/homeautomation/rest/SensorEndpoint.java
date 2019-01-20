@@ -35,6 +35,16 @@ public class SensorEndpoint {
         return Response.ok().entity(sensor).build();
     }
 
+    @GET
+    @Path("{id}/measurements")
+    public Response findSensorsById(@PathParam("id") long id) {
+        Sensor sensor = em.find(Sensor.class, id);
+        if (sensor == null || sensor.getMeasurements().isEmpty()) {
+            return Response.status(404).build();
+        }
+        return Response.ok().entity(sensor.getMeasurements()).build();
+    }
+
     @DELETE
     @Path("{id}")
     public Response deleteById(@PathParam("id") long id) {
@@ -57,9 +67,8 @@ public class SensorEndpoint {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{id}")
-    public Response put(@PathParam("id") long id, Sensor sensor) {
-        Sensor oldSensor = em.find(Sensor.class, id);
+    public Response put(Sensor sensor) {
+        Sensor oldSensor = em.find(Sensor.class, sensor.getId());
         if (oldSensor == null) {
             return Response.status(404).build();
         }

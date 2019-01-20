@@ -62,9 +62,13 @@ public abstract class Device {
     }
 
     public void setLocation(Location location) {
-        this.location.getDevices().remove(this);
+        if (this.location != null) {
+            this.location.getDevices().remove(this);
+        }
         this.location = location;
-        this.location.getDevices().add(this);
+        if (this.location != null) {
+            this.location.getDevices().add(this);
+        }
     }
 
     //endregion

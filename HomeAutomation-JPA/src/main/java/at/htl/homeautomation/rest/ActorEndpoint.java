@@ -57,9 +57,8 @@ public class ActorEndpoint {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{id}")
-    public Response put(@PathParam("id") long id, Actor actor) {
-        Actor oldActor = em.find(Actor.class, id);
+    public Response put(Actor actor) {
+        Actor oldActor = em.find(Actor.class, actor.getId());
         if (oldActor == null) {
             return Response.status(404).build();
         }

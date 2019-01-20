@@ -2,7 +2,7 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="jdbc:derby://localhost:1527/ - db@localhost:1527" uuid="7f9e711c-2c1d-44db-b564-108a414ef504">
-      <database-info product="Apache Derby" version="10.14.2.0 - (1828579)" jdbc-version="4.2" driver-name="Apache Derby Network Client JDBC Driver" driver-version="10.14.1.0 - (1808820)" family="DERBY" exact-version="10.14">
+      <database-info product="Apache Derby" version="10.11.1.2 - (1629631)" jdbc-version="4.2" driver-name="Apache Derby Network Client JDBC Driver" driver-version="10.14.1.0 - (1808820)" dbms="DERBY" exact-version="10.11.1.2">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
@@ -11,7 +11,7 @@
       <introspection-schemas>*:@</introspection-schemas>
     </data-source>
     <data-source name="mem:test" uuid="2d735680-1716-4a6b-bf13-e047b85ec142">
-      <database-info product="H2" version="1.4.196 (2017-06-10)" jdbc-version="4.0" driver-name="H2 JDBC Driver" driver-version="1.4.196 (2017-06-10)" family="H2" exact-version="1.4.196">
+      <database-info product="H2" version="1.4.196 (2017-06-10)" jdbc-version="4.0" driver-name="H2 JDBC Driver" driver-version="1.4.196 (2017-06-10)" dbms="H2" exact-version="1.4.196">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />

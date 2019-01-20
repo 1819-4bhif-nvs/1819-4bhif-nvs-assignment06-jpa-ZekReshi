@@ -67,9 +67,8 @@ public class LocationEndpoint {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{id}")
-    public Response put(@PathParam("id") long id, Location location) {
-        Location oldLocation = em.find(Location.class, id);
+    public Response put(Location location) {
+        Location oldLocation = em.find(Location.class, location.getId());
         if (oldLocation == null) {
             return Response.status(404).build();
         }

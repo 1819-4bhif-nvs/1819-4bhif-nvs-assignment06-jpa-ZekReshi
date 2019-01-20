@@ -21,7 +21,7 @@ public class DeviceEndpointIT {
     @Before
     public void initClient() {
         this.client = ClientBuilder.newClient();
-        this.tut = client.target("http://localhost:8080/homeautomation-jpa/API/devices");
+        this.tut = client.target("http://localhost:8080/homeautomation/API/devices");
     }
 
     @Test

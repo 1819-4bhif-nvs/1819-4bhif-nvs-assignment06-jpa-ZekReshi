@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class LocationEndpointIT {
+public class MeasurementEndpointIT {
 
     private Client client;
     private WebTarget tut;
@@ -24,47 +24,55 @@ public class LocationEndpointIT {
     @Before
     public void initClient() {
         this.client = ClientBuilder.newClient();
-        this.tut = client.target("http://localhost:8080/homeautomation/API/locations");
+        this.tut = client.target("http://localhost:8080/homeautomation/API/measurements");
     }
 
     @Test
-    public void getLocations() {
+    public void getMeasurements() {
         Response response = this.tut
                 .request(MediaType.APPLICATION_JSON)
                 .get();
         assertThat(response.getStatus(), is(200));
         JsonArray payload = response.readEntity(JsonArray.class);
-        assertThat(payload.get(0).asJsonObject().getString("name"), is("Wohnzimmer"));
+        assertThat(payload.get(0).asJsonObject().getString("unit"), is("degC"));
     }
 
     @Test
-    public void getLocation() {
+    public void getMeasurement() {
         Response response = this.tut
                 .path("1")
                 .request(MediaType.APPLICATION_JSON)
                 .get();
         assertThat(response.getStatus(), is(200));
         JsonObject payload = response.readEntity(JsonObject.class);
-        assertThat(payload.getString("name"), is("Wohnzimmer"));
+        assertThat(payload.getString("unit"), is("degC"));
     }
 
     @Test
-    public void postLocation() {
-        JsonObject sensor = Json.createObjectBuilder()
-                .add("name", "Vorzimmer")
+    public void postMeasurement() {
+        JsonObject measurement = Json.createObjectBuilder()
+                .add("value", 22.5)
+                .add("unit", "degC")
+                .add("sensor", Json.createObjectBuilder()
+                    .add("id", 1))
+                .add("time", "2018-12-08T12:04:32")
                 .build();
         Response response = this.tut
                 .request(MediaType.APPLICATION_JSON)
-                .post(Entity.json(sensor));
+                .post(Entity.json(measurement));
         assertThat(response.getStatus(), is(200));
         JsonObject payload = response.readEntity(JsonObject.class);
-        assertThat(payload.getString("name"), is("Vorzimmer"));
+        assertThat(payload.getString("unit"), is("degC"));
     }
 
     @Test
-    public void deleteLocation() {
+    public void deleteMeasurement() {
         JsonObject location = Json.createObjectBuilder()
-                .add("name", "Vorzimmer")
+                .add("value", 22.5)
+                .add("unit", "degC")
+                .add("sensor", Json.createObjectBuilder()
+                        .add("id", 1))
+                .add("time", "2018-12-08T12:04:32")
                 .build();
         Response response = this.tut
                 .request(MediaType.APPLICATION_JSON)
@@ -84,25 +92,33 @@ public class LocationEndpointIT {
     }
 
     @Test
-    public void putLocation() {
-        JsonObject location = Json.createObjectBuilder()
-                .add("name", "Vorzimmer")
+    public void putMeasurement() {
+        JsonObject measurement = Json.createObjectBuilder()
+                .add("value", 22.5)
+                .add("unit", "degC")
+                .add("sensor", Json.createObjectBuilder()
+                        .add("id", 1))
+                .add("time", "2018-12-08T12:04:32")
                 .build();
         Response response = this.tut
                 .request(MediaType.APPLICATION_JSON)
-                .post(Entity.json(location));
+                .post(Entity.json(measurement));
         assertThat(response.getStatus(), is(200));
         JsonObject payload = response.readEntity(JsonObject.class);
-        JsonObject locationToUpdate = Json.createObjectBuilder()
+        JsonObject measurementToUpdate = Json.createObjectBuilder()
                 .add("id", payload.getInt("id"))
-                .add("name", "Nachzimmer")
+                .add("value", payload.getJsonNumber("value").doubleValue())
+                .add("unit", payload.getString("unit"))
+                .add("sensor", Json.createObjectBuilder()
+                        .add("id", 2))
+                .add("time", payload.getString("time"))
                 .build();
         response = this.tut
                 .request(MediaType.APPLICATION_JSON)
-                .put(Entity.json(locationToUpdate));
+                .put(Entity.json(measurementToUpdate));
         assertThat(response.getStatus(), is(200));
         payload = response.readEntity(JsonObject.class);
-        assertThat(payload.getString("name"), is("Nachzimmer"));
+        assertThat(payload.getJsonObject("sensor").getInt("id"), is(2));
     }
 
 }
