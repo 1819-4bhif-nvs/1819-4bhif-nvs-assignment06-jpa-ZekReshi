@@ -14,7 +14,7 @@
 - Erstellen Systemtests auf Basis JavaSE.
 
 # Beschreibung
-Dieses Projekt dient zur Verwaltung von Heimautomationsgeräten wie Sensoren und Aktoren, wobei man von Sensoren und Aktoren weiß, in welchen Räumen sie sich befinden, und von Sensoren den Typ kennt, um zu wissen, was (Temperatur, Luftdruck, etc..) er in welcher Einheit (°C, bar) misst.
+Dieses Projekt dient zur Verwaltung von Heimautomationsgeräten wie Sensoren und Aktoren, wobei man von Sensoren und Aktoren weiß, in welchen Räumen sie sich befinden. Die Sensoren liefern Messwerte zu einem bestimmten Zeitpunkt mit der entsprechenden Einheit.
 
 # ERD
 <img src="images/ERD.png" height="400"/>
